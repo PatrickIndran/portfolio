@@ -3,76 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - My Work</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Patrick Indran | Digital Art Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&family=Michroma&display=swap" rel="stylesheet">
     <style>
-        /* Custom styles to ensure sharp corners and smooth transitions */
-        .grid img {
-            transition: transform 0.3s ease-in-out;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .grid img:hover {
-            transform: scale(1.03);
-            z-index: 10;
+        body {
+            background-color: #000000;
+            font-family: 'Michroma', sans-serif;
+            color: #fff;
+            line-height: 1.6;
         }
 
-        #preview-img {
-            max-width: 90vw;
-            max-height: 90vh;
+        .header {
+            padding: 2rem 1.5rem 1.5rem;
+            border-bottom: 1px solid #333;
+            margin-bottom: 1em;
         }
 
-        /* Specific styles for the logo to be larger */
-        .logo-container {
-            grid-column: span 2;
-            grid-row: span 2;
+        .site-title {
+            font-size: 2.2rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin: 0 0 0.3rem;
+            font-family: "BBH Sans Bartle", sans-serif;
+            text-transform: uppercase;
+        }
+
+        .site-subtitle {
+            font-size: 1rem;
+            color: #aaa;
+            margin: 0 0 1rem;
+            font-weight: 400;
+            font-family: "BBH Sans Bartle", sans-serif;
+        }
+
+        .artstation-link {
+            display: inline-flex;
+            align-items: center;
+            color: #13aff0;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .artstation-link svg {
+            margin-right: 8px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .gallery {
+            columns: 300px;
+            column-gap: 1em;
+            padding: 0 1.5rem;
+        }
+
+        .gallery-item {
+            margin-bottom: 1em;
+            break-inside: avoid;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.7);
+            max-width: 90%;
+            max-height: 90%;
+            transition: transform 0.4s ease;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .modal.active .modal-content {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 101;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .site-title {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
-<body class="bg-black text-white font-sans">
-
-    <main class="container mx-auto p-4">
-
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 text-center tracking-tight">My Portfolio</h1>
-
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-
-            <div class="logo-container">
-                <img src="artworks/logo.png" alt="Logo" class="w-full h-full object-cover cursor-pointer hover:opacity-80" onclick="openPreview(this)">
-            </div>
-
-            <img src="artworks/art1.jpg" alt="Artwork 1" class="w-full aspect-square object-cover cursor-pointer hover:opacity-80" onclick="openPreview(this)">
-            <img src="artworks/art2.jpg" alt="Artwork 2" class="w-full aspect-square object-cover cursor-pointer hover:opacity-80" onclick="openPreview(this)">
-            <img src="artworks/art3.jpg" alt="Artwork 3" class="w-full aspect-square object-cover cursor-pointer hover:opacity-80" onclick="openPreview(this)">
-            <img src="artworks/art4.jpg" alt="Artwork 4" class="w-full aspect-square object-cover cursor-pointer hover:opacity-80" onclick="openPreview(this)">
-            <img src="artworks/art5.jpg" alt="Artwork 5" class="w-full aspect-square object-cover cursor-pointer hover:opacity-80" onclick="openPreview(this)">
-
-            <img src="artworks/art6.jpg" alt="Artwork 6" class="w-full aspect-square object-cover cursor-pointer hover:opacity-80" onclick="openPreview(this)">
-            <img src="artworks/art7.jpg" alt="Artwork 7" class="w-full aspect-square object-cover cursor-pointer hover:opacity-80" onclick="openPreview(this)">
-            <img src="artworks/art8.jpg" alt="Artwork 8" class="w-full aspect-square object-cover cursor-pointer hover:opacity-80" onclick="openPreview(this)">
-
+<body>
+    <header class="header">
+        <h1 class="site-title">Patrick Indran</h1>
+        <p class="site-subtitle">Digital Artist & Concept Designer</p>
+        <a href="https://www.artstation.com/patrickindran" class="artstation-link" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M0 17.723l2.027 3.505h.001a2.424 2.424 0 0 0 2.164 1.333h13.457l-2.792-4.838H0zm24 .025c0-.484-.143-.935-.388-1.314L15.728 2.728a2.424 2.424 0 0 0-2.142-1.289H9.419L21.598 22.54l1.92-3.325c.378-.637.482-.919.482-1.467zm-11.129-3.462L7.428 4.858l-5.444 9.428h10.887z"/>
+            </svg>
+            View on ArtStation
+        </a>
+    </header>
+    
+    <div class="gallery">
+        <div class="gallery-item" data-index="0">
+            <img src="https://cdna.artstation.com/p/assets/images/images/092/648/116/large/patrick-indran-untitled.jpg?1760268188" alt="Digital Artwork">
         </div>
+        <div class="gallery-item" data-index="1">
+            <img src="https://cdna.artstation.com/p/assets/images/images/091/906/710/large/patrick-indran-untitled.webp?1758133047" alt="Digital Artwork">
+        </div>
+        <div class="gallery-item" data-index="2">
+            <img src="https://cdna.artstation.com/p/assets/images/images/091/337/412/large/patrick-indran-untitled.webp?1756497135" alt="Digital Artwork">
+        </div>
+        <div class="gallery-item" data-index="3">
+            <img src="https://cdna.artstation.com/p/assets/images/images/091/166/384/medium/patrick-indran-untitled.webp?1756038728" alt="Digital Artwork">
+        </div>
+        <div class="gallery-item" data-index="4">
+            <img src="https://cdna.artstation.com/p/assets/images/images/090/617/516/medium/patrick-indran-pasted-image-2.webp?1754394021" alt="Digital Artwork">
+        </div>
+        <div class="gallery-item" data-index="5">
+            <img src="https://cdnb.artstation.com/p/assets/images/images/090/616/083/smaller_square/patrick-indran-untitled-min.jpg?1754390907" alt="Digital Artwork">
+        </div>
+        <div class="gallery-item" data-index="6">
+            <img src="https://cdna.artstation.com/p/assets/images/images/088/117/078/medium/patrick-indran-4.jpg?1747475165" alt="Digital Artwork">
+        </div>
+        <div class="gallery-item" data-index="7">
+            <img src="https://cdnb.artstation.com/p/assets/images/images/090/615/739/medium/patrick-indran-final-render.webp?1754390143" alt="Digital Artwork">
+        </div>
+        <div class="gallery-item" data-index="8">
+            <img src="https://cdna.artstation.com/p/assets/images/images/087/896/876/medium/patrick-indran-render-4.jpg?1746980617" alt="Digital Artwork">
+        </div>
+        <div class="gallery-item" data-index="9">
+            <img src="https://cdna.artstation.com/p/assets/images/images/087/342/380/medium/patrick-indran-main.jpg?1745523106" alt="Digital Artwork">
+        </div>
+        <div class="gallery-item" data-index="10">
+            <img src="https://cdnb.artstation.com/p/assets/images/images/086/717/849/medium/patrick-indran-screenshot-2025-03-30-180518.jpg?1743890453" alt="Digital Artwork">
+        </div>
+    </div>
 
-    </main>
-
-    <div id="preview" class="hidden fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
-        <span class="absolute top-4 right-4 text-white text-3xl sm:text-4xl cursor-pointer p-2 rounded-full hover:bg-white hover:bg-opacity-10 transition-colors" onclick="closePreview()">&times;</span>
-        <img id="preview-img" src="" class="max-w-[90vw] max-h-[90vh] object-contain" alt="Preview">
+    <!-- Modal for image preview -->
+    <div class="modal" id="imageModal">
+        <button class="modal-close" id="modalClose">&times;</button>
+        <div class="modal-content">
+            <img class="modal-image" id="modalImage" src="" alt="">
+        </div>
     </div>
 
     <script>
-        function openPreview(img) {
-            document.getElementById('preview-img').src = img.src;
-            document.getElementById('preview').classList.remove('hidden');
-            // Optional: Hide scrollbar when modal is open
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closePreview() {
-            document.getElementById('preview').classList.add('hidden');
-            // Optional: Restore scrollbar
-            document.body.style.overflow = '';
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalClose = document.getElementById('modalClose');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            // Open modal when gallery item is clicked
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const imgSrc = this.querySelector('img').src;
+                    modalImage.src = imgSrc;
+                    
+                    modal.style.display = 'block';
+                    // Trigger animation after a short delay
+                    setTimeout(() => {
+                        modal.classList.add('active');
+                    }, 10);
+                });
+            });
+            
+            // Close modal
+            modalClose.addEventListener('click', closeModal);
+            
+            // Close modal when clicking outside the image
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Keyboard close with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'block') {
+                    closeModal();
+                }
+            });
+            
+            function closeModal() {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+            }
+        });
     </script>
-
 </body>
 </html>
